@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { CornerDownLeft, Image, Terminal } from 'lucide-react'
-import remImage from '../rem.png'
+import { CornerDownLeft, Terminal } from 'lucide-react'
 import './MacTerminal.css'
 
 function WindowBar({ title, icon }) {
@@ -100,12 +99,6 @@ export default function MacTerminal({ profile, skillCategories }) {
         </div>
       </div>
 
-      <figure className="mac-window mac-preview" aria-label="rem.png 미리보기">
-        <WindowBar title="rem.png" icon={Image} />
-        <div className="mac-preview-image">
-          <img src={remImage} alt="푸른 머리의 렘 캐릭터 일러스트" width={800} height={1136} loading="lazy" decoding="async" />
-        </div>
-      </figure>
     </section>
   )
 }

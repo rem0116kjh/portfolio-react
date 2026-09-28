@@ -1,7 +1,6 @@
 .mac-desktop {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 248px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr);
   margin-bottom: 48px;
 }
 
@@ -135,16 +134,8 @@
 .terminal-form button:hover { background: #303139; }
 .terminal-form button:focus-visible { outline-color: #93c5fd; }
 
-.mac-preview { display: flex; flex-direction: column; height: 400px; }
-.mac-preview-image { flex: 1; min-height: 0; background: #e4e4fc; }
-.dark .mac-preview-image { background: #252338; }
-.mac-preview-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
-
 @media (max-width: 767px) {
-  .mac-desktop { grid-template-columns: minmax(0, 1fr); }
   .terminal-log { padding: 16px; }
   .terminal-input-area { padding-left: 16px; }
   .terminal-form input { font-size: 16px; }
-  .mac-preview { width: 100%; max-width: 320px; height: auto; justify-self: center; }
-  .mac-preview-image img { height: auto; }
 }

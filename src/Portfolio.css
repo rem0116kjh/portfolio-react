@@ -60,9 +60,8 @@
 .about-facts { display: grid; align-content: center; gap: 17px; padding: 24px; border: 1px solid var(--portfolio-line); border-radius: 10px; background: var(--portfolio-surface); }
 .about-facts dt { color: var(--portfolio-muted); font-size: 11px; margin-bottom: 4px; }
 .about-facts dd { font-size: 14px; word-break: keep-all; }
-/* Preserve the existing terminal and Rem presentation. */
-.about-section .mac-desktop { grid-template-columns: minmax(0, 1fr) 224px; gap: 24px; margin-bottom: 0; }
-.about-section .mac-terminal, .about-section .mac-preview { height: 364px; }
+.about-section .mac-desktop { margin-bottom: 0; }
+.about-section .mac-terminal { height: 364px; }
 .about-section .mac-window { box-shadow: none; }
 .stack-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .stack-group { padding: 24px; border: 1px solid var(--portfolio-line); border-radius: 10px; background: var(--portfolio-surface); }
@@ -125,9 +124,7 @@
   .section-heading { gap: 12px; margin-bottom: 28px; }
   .section-heading h2 { font-size: 12px; }
   .about-intro { grid-template-columns: 1fr; gap: 28px; }
-  .about-section .mac-desktop { grid-template-columns: minmax(0, 1fr); }
   .about-section .mac-terminal { height: 432px; }
-  .about-section .mac-preview { width: 224px; height: auto; }
   .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .record-row { gap: 12px; }
 }
