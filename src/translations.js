@@ -35,6 +35,7 @@ const translations = {
       { id: 'gcpt', name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
+      { date: '2026', title: 'FAUST CTF 2026', badge: '60등' },
       { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
       { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
       { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
@@ -90,6 +91,7 @@ const translations = {
       { id: 'gcpt', name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
     awards: [
+      { date: '2026', title: 'FAUST CTF 2026', badge: '60th place' },
       { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' }, { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
       { date: '2026.07', title: 'Industrial Engineer Information Processing', badge: 'Passed' }, { date: '2026', title: 'COSS Youth Cyber Defense', badge: '7th in qualifiers' },
     ],
