@@ -33,16 +33,32 @@ function MoreButton({ expanded, onClick, target, count, label, language }) {
   )
 }
 
+function RecordGroup({ group, sectionId, language, labels }) {
+  const [expanded, setExpanded] = useState(false)
+  const moreItems = group.items.slice(3)
+  const headingId = `${sectionId}-${group.id}-heading`
+  const moreId = `${sectionId}-${group.id}-more`
+
+  return (
+    <section className="record-group" aria-labelledby={headingId}>
+      <div className="record-group-heading">
+        <h3 id={headingId}>{group.name}</h3>
+        {moreItems.length > 0 && <MoreButton language={language} expanded={expanded} onClick={() => setExpanded((v) => !v)} target={moreId} count={moreItems.length} label={group.name} />}
+      </div>
+      <RecordList unknownDateLabel={labels.unknownDate} items={group.items.slice(0, 3)} />
+      {moreItems.length > 0 && <div id={moreId} hidden={!expanded}><RecordList unknownDateLabel={labels.unknownDate} items={moreItems} /></div>}
+    </section>
+  )
+}
+
 export default function App() {
   const [language, setLanguage] = useState(() => {
     try { return localStorage.getItem('language') === 'en' ? 'en' : 'ko' } catch { return 'ko' }
   })
   const en = language === 'en'
   const t = translations[language]
-  const { profile, projects, skills: skillCategories, awards, moreAwards, activities, moreActivities, sections, labels } = t
+  const { profile, projects, skills: skillCategories, awardGroups, activityGroups, sections, labels } = t
 
-  const [showMoreAwards, setShowMoreAwards] = useState(false)
-  const [showMoreActivities, setShowMoreActivities] = useState(false)
   const [isDark, setIsDark] = useState(() => {
     try {
       const saved = localStorage.getItem('darkMode')
@@ -119,15 +135,13 @@ export default function App() {
         <ProjectShowcase projects={projects} github={profile.github} language={language} />
 
         <section id="awards" aria-labelledby="awards-heading" className="portfolio-section">
-          <SectionHeading id="awards-heading" aside={<MoreButton language={language} expanded={showMoreAwards} onClick={() => setShowMoreAwards((v) => !v)} target="more-awards" count={moreAwards.length} label={sections.awards} />}>{sections.awards}</SectionHeading>
-          <RecordList unknownDateLabel={labels.unknownDate} items={awards} />
-          <div id="more-awards" role="region" aria-label={labels.moreAwards} hidden={!showMoreAwards}><RecordList unknownDateLabel={labels.unknownDate} items={moreAwards} /></div>
+          <SectionHeading id="awards-heading">{sections.awards}</SectionHeading>
+          <div className="record-groups-grid">{awardGroups.map((group) => <RecordGroup key={group.id} group={group} sectionId="awards" language={language} labels={labels} />)}</div>
         </section>
 
         <section id="activities" aria-labelledby="activities-heading" className="portfolio-section">
-          <SectionHeading id="activities-heading" aside={<MoreButton language={language} expanded={showMoreActivities} onClick={() => setShowMoreActivities((v) => !v)} target="more-activities" count={moreActivities.length} label={sections.activities} />}>{sections.activities}</SectionHeading>
-          <RecordList unknownDateLabel={labels.unknownDate} items={activities} />
-          <div id="more-activities" role="region" aria-label={labels.moreActivities} hidden={!showMoreActivities}><RecordList unknownDateLabel={labels.unknownDate} items={moreActivities} /></div>
+          <SectionHeading id="activities-heading">{sections.activities}</SectionHeading>
+          <div className="record-groups-grid">{activityGroups.map((group) => <RecordGroup key={group.id} group={group} sectionId="activities" language={language} labels={labels} />)}</div>
         </section>
 
         <section className="portfolio-section" aria-labelledby="journal-heading">

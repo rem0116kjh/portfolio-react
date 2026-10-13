@@ -34,27 +34,46 @@ const translations = {
       { id: 'lhlinux', name: 'lhLinux', description: 'Ubuntu 24.04 LTS 기반의 오픈소스 WSL2 CLI 배포판으로, 누구나 설치하고 개선할 수 있는 개발 환경 프로젝트입니다.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/lhlinux' }] },
       { id: 'gcpt', name: 'GCPT', description: 'GPT, Claude, Gemini의 토론을 시각화하고 추론 흐름을 분석합니다. 디자인과 일부 기능 구현에 참여했습니다.', category: 'AI · 협업 프로젝트', tags: ['AI Debate', '시각화'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
-    awards: [
-      { date: '2026', title: 'FAUST CTF 2026', badge: '60등' },
-      { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
-      { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
-      { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
-      { date: '2026', title: 'COSS 청소년 사이버 해킹방어', badge: '예선 7등' },
+    awardGroups: [
+      { id: 'development', name: '개발 분야', items: [
+        { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
+        { title: '총장배 로봇 프로그래밍 경진대회', badge: '3등' },
+        { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' },
+      ] },
+      { id: 'hacking', name: '해킹 분야', items: [
+        { date: '2026', title: 'FAUST CTF 2026', badge: '60등' },
+        { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
+        { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
+        { date: '2026', title: 'COSS 청소년 사이버 해킹방어', badge: '예선 7등' },
+        { date: '2026', title: '사이버가디언즈 CMX', badge: '팀별 18등' },
+        { date: '2026', title: 'SCA CTF', badge: '본선 20등' },
+        { title: '현대오토에버 화이트해커 경진대회', badge: '입상' },
+      ] },
+      { id: 'other', name: '그 외 분야', items: [
+        { title: '교내 포트폴리오 경진대회', badge: '3등', detail: '1·2학년 연속 수상' },
+        { title: '봉사 부문 표창', badge: '수상' },
+      ] },
     ],
-    moreAwards: [
-      { date: '2026', title: '사이버가디언즈 CMX', badge: '팀별 18등' }, { date: '2026', title: 'SCA CTF', badge: '본선 20등' },
-      { title: '총장배 로봇 프로그래밍 경진대회', badge: '3등' }, { title: '현대오토에버 화이트해커 경진대회', badge: '입상' },
-      { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' }, { title: '교내 포트폴리오 경진대회', badge: '3등', detail: '1·2학년 연속 수상' }, { title: '봉사 부문 표창', badge: '수상' },
-    ],
-    activities: [
-      { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' }, { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' }, { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
-    ],
-    moreActivities: [
-      { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' }, { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
-      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: '컨퍼런스' }, { date: '2026', title: '.HACK 컨퍼런스', badge: '컨퍼런스' },
-      { date: '2025', title: '현대오토에버 고교생 IT 꿈나무 화이트해커', badge: '교육' }, { date: '2024–2026', title: '학생기자단과 학교 블로그', badge: '기자단' },
-      { date: '2024–2025', title: '청소년운영위원회 정책부', badge: '위원' }, { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
-      { date: '2024', title: '네이버 청소년 크리에이터 스쿨', badge: '교육' }, { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
+    activityGroups: [
+      { id: 'development', name: '개발 분야', items: [
+        { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
+        { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
+        { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
+        { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
+      ] },
+      { id: 'hacking', name: '해킹 분야', items: [
+        { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' },
+        { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' },
+        { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
+        { date: '2026', title: '.HACK 컨퍼런스', badge: '컨퍼런스' },
+        { date: '2025', title: '현대오토에버 고교생 IT 꿈나무 화이트해커', badge: '교육' },
+      ] },
+      { id: 'other', name: '그 외 분야', items: [
+        { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: '컨퍼런스' },
+        { date: '2024–2026', title: '학생기자단과 학교 블로그', badge: '기자단' },
+        { date: '2024–2025', title: '청소년운영위원회 정책부', badge: '위원' },
+        { date: '2024', title: '네이버 청소년 크리에이터 스쿨', badge: '교육' },
+      ] },
     ],
     labels: { moreAwards: '더 많은 대회·수상 기록', moreActivities: '더 많은 활동·경험 기록', more: '더 보기', collapse: '접기', unknownDate: '연도 미기재', newTab: '새 탭' },
   },
@@ -90,25 +109,46 @@ const translations = {
       { id: 'lhlinux', name: 'lhLinux', description: 'An open-source WSL2 CLI distribution based on Ubuntu 24.04 LTS, designed as a development environment anyone can install and improve.', category: 'Linux · CLI · Ubuntu', tags: ['WSL2', 'CLI', 'Ubuntu'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/lhlinux' }] },
       { id: 'gcpt', name: 'GCPT', description: 'Visualizes debates between GPT, Claude, and Gemini and analyzes their reasoning flows. I contributed to the design and parts of the implementation.', category: 'AI · Collaboration', tags: ['AI Debate', 'Visualization'], links: [{ label: 'GitHub', url: 'https://github.com/cksdud32/gcpt' }] },
     ],
-    awards: [
-      { date: '2026', title: 'FAUST CTF 2026', badge: '60th place' },
-      { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' }, { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
-      { date: '2026.07', title: 'Industrial Engineer Information Processing', badge: 'Passed' }, { date: '2026', title: 'COSS Youth Cyber Defense', badge: '7th in qualifiers' },
+    awardGroups: [
+      { id: 'development', name: 'Development', items: [
+        { date: '2026.07', title: 'Industrial Engineer Information Processing', badge: 'Passed' },
+        { title: 'Presidential Robot Programming Contest', badge: '3rd place' },
+        { title: 'Future Algorithm Contest', badge: '2nd place' },
+      ] },
+      { id: 'hacking', name: 'Hacking', items: [
+        { date: '2026', title: 'FAUST CTF 2026', badge: '60th place' },
+        { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' },
+        { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
+        { date: '2026', title: 'COSS Youth Cyber Defense', badge: '7th in qualifiers' },
+        { date: '2026', title: 'Cyber Guardians CMX', badge: '18th by team' },
+        { date: '2026', title: 'SCA CTF', badge: '20th in finals' },
+        { title: 'Hyundai AutoEver White Hat Hacker Contest', badge: 'Award winner' },
+      ] },
+      { id: 'other', name: 'Other', items: [
+        { title: 'School Portfolio Contest', badge: '3rd place', detail: 'Awarded in both freshman and sophomore years' },
+        { title: 'Volunteer Service Award', badge: 'Awarded' },
+      ] },
     ],
-    moreAwards: [
-      { date: '2026', title: 'Cyber Guardians CMX', badge: '18th by team' }, { date: '2026', title: 'SCA CTF', badge: '20th in finals' },
-      { title: 'Presidential Robot Programming Contest', badge: '3rd place' }, { title: 'Hyundai AutoEver White Hat Hacker Contest', badge: 'Award winner' },
-      { title: 'Future Algorithm Contest', badge: '2nd place' }, { title: 'School Portfolio Contest', badge: '3rd place', detail: 'Awarded in both freshman and sophomore years' }, { title: 'Volunteer Service Award', badge: 'Awarded' },
-    ],
-    activities: [
-      { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' }, { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' }, { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
-    ],
-    moreActivities: [
-      { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' }, { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },
-      { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: 'Conference' }, { date: '2026', title: '.HACK Conference', badge: 'Conference' },
-      { date: '2025', title: 'Hyundai AutoEver High School White Hat Hacker Program', badge: 'Training' }, { date: '2024–2026', title: 'Student Press & School Blog', badge: 'Student press' },
-      { date: '2024–2025', title: 'Youth Operations Committee · Policy Division', badge: 'Committee member' }, { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
-      { date: '2024', title: 'Naver Youth Creator School', badge: 'Training' }, { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
+    activityGroups: [
+      { id: 'development', name: 'Development', items: [
+        { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
+        { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' },
+        { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
+        { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
+      ] },
+      { id: 'hacking', name: 'Hacking', items: [
+        { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' },
+        { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' },
+        { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },
+        { date: '2026', title: '.HACK Conference', badge: 'Conference' },
+        { date: '2025', title: 'Hyundai AutoEver High School White Hat Hacker Program', badge: 'Training' },
+      ] },
+      { id: 'other', name: 'Other', items: [
+        { date: '2026', title: 'The Ignition 2026 :: YHHS X Hashed', badge: 'Conference' },
+        { date: '2024–2026', title: 'Student Press & School Blog', badge: 'Student press' },
+        { date: '2024–2025', title: 'Youth Operations Committee · Policy Division', badge: 'Committee member' },
+        { date: '2024', title: 'Naver Youth Creator School', badge: 'Training' },
+      ] },
     ],
     labels: { moreAwards: 'More awards & certifications', moreActivities: 'More activities & experience', more: 'Show more', collapse: 'Collapse', unknownDate: 'Date not listed', newTab: 'opens in a new tab' },
   },
