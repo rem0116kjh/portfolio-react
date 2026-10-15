@@ -5,13 +5,13 @@ import ProjectShowcase from './ProjectShowcase.jsx'
 import './Portfolio.css'
 import translations from './translations.js'
 
-function RecordList({ items, unknownDateLabel }) {
+function RecordList({ items, unknownDateLabel, newTabLabel }) {
   return (
     <ul className="record-list">
       {items.map((item) => (
         <li key={item.title} className="record-row">
           <span className="record-date" aria-label={item.date ? undefined : unknownDateLabel}>{item.date || '—'}</span>
-          <div className="record-title"><p>{item.title}</p>{item.detail && <p className="record-detail">{item.detail}</p>}</div>
+          <div className="record-title"><p>{item.url ? <a href={item.url} target="_blank" rel="noreferrer" aria-label={`${item.title} (${newTabLabel})`}>{item.title}</a> : item.title}</p>{item.detail && <p className="record-detail">{item.detail}</p>}</div>
           <span className="record-badge">{item.badge}</span>
         </li>
       ))}
@@ -45,8 +45,8 @@ function RecordGroup({ group, sectionId, language, labels }) {
         <h3 id={headingId}>{group.name}</h3>
         {moreItems.length > 0 && <MoreButton language={language} expanded={expanded} onClick={() => setExpanded((v) => !v)} target={moreId} count={moreItems.length} label={group.name} />}
       </div>
-      <RecordList unknownDateLabel={labels.unknownDate} items={group.items.slice(0, 3)} />
-      {moreItems.length > 0 && <div id={moreId} hidden={!expanded}><RecordList unknownDateLabel={labels.unknownDate} items={moreItems} /></div>}
+      <RecordList unknownDateLabel={labels.unknownDate} newTabLabel={labels.newTab} items={group.items.slice(0, 3)} />
+      {moreItems.length > 0 && <div id={moreId} hidden={!expanded}><RecordList unknownDateLabel={labels.unknownDate} newTabLabel={labels.newTab} items={moreItems} /></div>}
     </section>
   )
 }

@@ -56,12 +56,18 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: '개발 분야', items: [
+        { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '본선 진출', detail: '교과연계 AI 탐구 부문 · 본선 준비 중' },
+        { date: '2026', title: 'SK 해커톤', badge: '예선 준비 중' },
+        { date: '2026', title: '카카오 AI TOP 100', badge: '준비 중' },
         { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
         { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
         { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
         { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
       ] },
       { id: 'hacking', name: '해킹 분야', items: [
+        { date: '2026', title: 'KISA 버그헌팅 실습훈련 초급과정', badge: '수료', detail: '수료증 취득' },
+        { date: '2026', title: 'HITCON CTF 2026', badge: '준비 중', url: 'https://ctftime.org/event/3340' },
+        { date: '2026', title: 'Securinets CTF Quals 2026', badge: '준비 중', url: 'https://ctftime.org/event/3364' },
         { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' },
         { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' },
         { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
@@ -131,12 +137,18 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: 'Development', items: [
+        { date: '2026', title: '8th National Student AI Competition', badge: 'Finalist', detail: 'Curriculum-linked AI Inquiry · Preparing for the finals' },
+        { date: '2026', title: 'SK Hackathon', badge: 'Preparing for qualifiers' },
+        { date: '2026', title: 'Kakao AI TOP 100', badge: 'In preparation' },
         { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
         { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' },
         { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
         { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
       ] },
       { id: 'hacking', name: 'Hacking', items: [
+        { date: '2026', title: 'KISA Bug Hunting Practical Training · Beginner Course', badge: 'Completed', detail: 'Certificate of completion earned' },
+        { date: '2026', title: 'HITCON CTF 2026', badge: 'In preparation', url: 'https://ctftime.org/event/3340' },
+        { date: '2026', title: 'Securinets CTF Quals 2026', badge: 'In preparation', url: 'https://ctftime.org/event/3364' },
         { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' },
         { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' },
         { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },

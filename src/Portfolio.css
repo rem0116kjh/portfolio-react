@@ -93,6 +93,8 @@
 .record-row { display: grid; grid-template-columns: 104px minmax(0, 1fr) auto; align-items: center; gap: 22px; padding: 22px 4px; border-bottom: 1px solid var(--portfolio-line); }
 .record-date { color: var(--portfolio-muted); font-family: var(--portfolio-mono); font-size: 12px; }
 .record-title { font-size: 14px; line-height: 1.8; word-break: keep-all; overflow-wrap: anywhere; }
+.record-title a { text-decoration: underline; text-decoration-color: var(--portfolio-muted); text-underline-offset: 4px; }
+.record-title a:hover { text-decoration-color: currentColor; }
 .record-detail { color: var(--portfolio-muted); font-size: 12px; }
 .record-badge { padding: 3px 9px; border: 1px solid var(--portfolio-line); border-radius: 5px; color: var(--portfolio-muted); font-size: 11px; white-space: nowrap; }
 .journal-link { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px; border: 1px solid var(--portfolio-line); border-radius: 10px; background: var(--portfolio-surface); }
