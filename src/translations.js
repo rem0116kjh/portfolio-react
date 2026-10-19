@@ -69,7 +69,6 @@ const translations = {
       { id: 'hacking', name: '해킹 분야', items: [
         { date: '2026', title: 'KISA 버그헌팅 실습훈련 초급과정', badge: '수료', detail: '수료증 취득' },
         { date: '2026', title: 'HITCON CTF 2026', badge: '준비 중', url: 'https://ctftime.org/event/3340' },
-        { date: '2026', title: 'Securinets CTF Quals 2026', badge: '준비 중', url: 'https://ctftime.org/event/3364' },
         { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' },
         { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' },
         { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
@@ -152,7 +151,6 @@ const translations = {
       { id: 'hacking', name: 'Hacking', items: [
         { date: '2026', title: 'KISA Bug Hunting Practical Training · Beginner Course', badge: 'Completed', detail: 'Certificate of completion earned' },
         { date: '2026', title: 'HITCON CTF 2026', badge: 'In preparation', url: 'https://ctftime.org/event/3340' },
-        { date: '2026', title: 'Securinets CTF Quals 2026', badge: 'In preparation', url: 'https://ctftime.org/event/3364' },
         { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' },
         { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' },
         { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },
