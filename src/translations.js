@@ -43,6 +43,8 @@ const translations = {
         { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' },
       ] },
       { id: 'hacking', name: '해킹 분야', items: [
+        { date: '2026', title: 'Hack.lu CTF 2026', badge: '24등', url: 'https://flu.xxx/' },
+        { date: '2026', title: 'HITCON CTF 2026', badge: '15등', url: 'https://ctf2026.hitcon.org/' },
         { date: '2026', title: 'FAUST CTF 2026', badge: '60등' },
         { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '예선 10등' },
         { date: '2026.08.22', title: 'CCE 예선전', badge: '예선 15등' },
@@ -58,7 +60,7 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: '개발 분야', items: [
-        { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '본선 진출', detail: '교과연계 AI 탐구 부문 · 본선 준비 중' },
+        { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '본선 진출', detail: '교과연계 AI 탐구 부문 · 결과 대기 중' },
         { date: '2026', title: '카카오 AI TOP 100', badge: '준비 중' },
         { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
         { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
@@ -66,10 +68,9 @@ const translations = {
         { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
       ] },
       { id: 'hacking', name: '해킹 분야', items: [
-        { date: '2026', title: 'KISA 버그헌팅 실습훈련 초급과정', badge: '수료', detail: '수료증 취득' },
-        { date: '2026', title: 'HITCON CTF 2026', badge: '준비 중', url: 'https://ctftime.org/event/3340' },
         { date: '2026', title: 'Null; 해킹팀', badge: '팀 리더' },
-        { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원' },
+        { date: '2026', title: 'Hwalbin 해킹팀', badge: '팀원', url: 'https://ctftime.org/team/304129' },
+        { date: '2026', title: 'KISA 버그헌팅 실습훈련 초급과정', badge: '수료', detail: '수료증 취득' },
         { date: '2026', title: '경기 청소년 사이버 보안 캠프', badge: '참여' },
         { date: '2026', title: '.HACK 컨퍼런스', badge: '컨퍼런스' },
         { date: '2025', title: '현대오토에버 고교생 IT 꿈나무 화이트해커', badge: '교육' },
@@ -124,6 +125,8 @@ const translations = {
         { title: 'Future Algorithm Contest', badge: '2nd place' },
       ] },
       { id: 'hacking', name: 'Hacking', items: [
+        { date: '2026', title: 'Hack.lu CTF 2026', badge: '24th place', url: 'https://flu.xxx/' },
+        { date: '2026', title: 'HITCON CTF 2026', badge: '15th place', url: 'https://ctf2026.hitcon.org/' },
         { date: '2026', title: 'FAUST CTF 2026', badge: '60th place' },
         { date: '2026', title: 'ASIS CTF Quals 2026, Iran Tech Olympics CTF 2026', badge: '10th in qualifiers' },
         { date: '2026.08.22', title: 'CCE Qualifiers', badge: '15th in qualifiers' },
@@ -139,7 +142,7 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: 'Development', items: [
-        { date: '2026', title: '8th National Student AI Competition', badge: 'Finalist', detail: 'Curriculum-linked AI Inquiry · Preparing for the finals' },
+        { date: '2026', title: '8th National Student AI Competition', badge: 'Finalist', detail: 'Curriculum-linked AI Inquiry · Awaiting results' },
         { date: '2026', title: 'Kakao AI TOP 100', badge: 'In preparation' },
         { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
         { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' },
@@ -147,10 +150,9 @@ const translations = {
         { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
       ] },
       { id: 'hacking', name: 'Hacking', items: [
-        { date: '2026', title: 'KISA Bug Hunting Practical Training · Beginner Course', badge: 'Completed', detail: 'Certificate of completion earned' },
-        { date: '2026', title: 'HITCON CTF 2026', badge: 'In preparation', url: 'https://ctftime.org/event/3340' },
         { date: '2026', title: 'Null; Hacking Team', badge: 'Team lead' },
-        { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member' },
+        { date: '2026', title: 'Hwalbin Hacking Team', badge: 'Member', url: 'https://ctftime.org/team/304129' },
+        { date: '2026', title: 'KISA Bug Hunting Practical Training · Beginner Course', badge: 'Completed', detail: 'Certificate of completion earned' },
         { date: '2026', title: 'Gyeonggi Youth Cybersecurity Camp', badge: 'Participant' },
         { date: '2026', title: '.HACK Conference', badge: 'Conference' },
         { date: '2025', title: 'Hyundai AutoEver High School White Hat Hacker Program', badge: 'Training' },

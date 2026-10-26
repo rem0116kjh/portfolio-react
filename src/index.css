@@ -1,20 +1,22 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "./**/*.{js,jsx,ts,tsx}";
+@source "../index.html";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --color-dark-bg: #0a0a0a;
-  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Portfolio Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
-  background: #fafafa;
+  background: #f6f3eb;
   color-scheme: light;
 }
 
 html.dark {
-  background: #0a0a0a;
+  background: #17121f;
   color-scheme: dark;
 }
 
@@ -27,8 +29,8 @@ body {
 }
 
 ::selection {
-  color: #fff;
-  background: #606060;
+  color: #17121f;
+  background: #fff323;
 }
 
 :focus-visible {

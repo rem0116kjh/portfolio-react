@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#6a00ef" />
     <meta name="description" content="김진형(Rem)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다." />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="김진형 · Rem | 개발 포트폴리오" />
+    <meta property="og:title" content="REM WORLD · 김진형 | 개발 포트폴리오" />
     <meta property="og:description" content="호기심을 프로젝트로 만드는 학생 개발자. 웹·AI·보안 프로젝트와 성장의 기록." />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <title>김진형 · Rem | 개발 포트폴리오</title>
+    <title>REM WORLD · 김진형 | 개발 포트폴리오</title>
     <script>
       (() => {
-        let dark = true
+        let dark = false
         try {
           const saved = localStorage.getItem('darkMode')
           if (saved === 'true' || saved === 'false') dark = saved === 'true'
-        } catch { /* Use the system theme when storage is unavailable. */ }
+        } catch { /* Use the default theme when storage is unavailable. */ }
         document.documentElement.classList.toggle('dark', dark)
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#0a0a0a' : '#fafafa'
+        document.querySelector('meta[name="theme-color"]').content = '#6a00ef'
       })()
     </script>
   </head>

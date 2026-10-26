@@ -16,11 +16,12 @@ function WindowBar({ title, icon }) {
   )
 }
 
-export default function MacTerminal({ profile, skillCategories }) {
+export default function MacTerminal({ profile, skillCategories, language = 'ko' }) {
+  const en = language === 'en'
   const [command, setCommand] = useState('')
   const [history, setHistory] = useState(() => [
-    { id: 0, command: 'whoami', output: `${profile.name} · ${profile.role}` },
-    { id: 1, command: 'cat about.txt', output: profile.bio },
+    { id: 0, command: 'whoami', kind: 'identity' },
+    { id: 1, command: 'cat about.txt', kind: 'bio' },
   ])
   const logRef = useRef(null)
   const nextId = useRef(2)
@@ -46,7 +47,7 @@ export default function MacTerminal({ profile, skillCategories }) {
     let output
     switch (normalized) {
       case 'help':
-        output = 'whoami — 자기소개\nabout — 소개 글\nstack — 기술 스택\nclear — 화면 지우기'
+        output = en ? 'whoami — who I am\nabout — about me\nstack — my toolbox\nclear — clear the terminal' : 'whoami — 자기소개\nabout — 소개 글\nstack — 기술 스택\nclear — 화면 지우기'
         break
       case 'whoami':
         output = `${profile.name} · ${profile.role}`
@@ -59,7 +60,7 @@ export default function MacTerminal({ profile, skillCategories }) {
         output = skillCategories.map(({ name, items }) => `${name}: ${items.join(', ')}`).join('\n')
         break
       default:
-        output = `명령어를 찾을 수 없어요: ${value}\nhelp로 사용 가능한 명령어를 확인해 보세요.`
+        output = en ? `Command not found: ${value}\nType help to see available commands.` : `명령어를 찾을 수 없어요: ${value}\nhelp로 사용 가능한 명령어를 확인해 보세요.`
     }
 
     const entry = { id: nextId.current++, command: value, output }
@@ -67,23 +68,23 @@ export default function MacTerminal({ profile, skillCategories }) {
   }
 
   return (
-    <section className="mac-desktop" aria-label="터미널로 만나는 Rem">
+    <section className="mac-desktop" aria-label={en ? 'Meet Rem in the terminal' : '터미널로 만나는 Rem'}>
       <div className="mac-window mac-terminal">
         <WindowBar title="Rem — zsh" icon={Terminal} />
-        <div ref={logRef} className="terminal-log" role="log" aria-label="터미널 출력" tabIndex={0}>
+        <div ref={logRef} className="terminal-log" role="log" aria-label={en ? 'Terminal output' : '터미널 출력'} tabIndex={0}>
           {history.map((entry) => (
             <div key={entry.id} className="terminal-entry">
               <p><span className="terminal-prompt">Rem@macbook</span> <span className="terminal-path">~ %</span> {entry.command}</p>
-              <p className="terminal-output">{entry.output}</p>
+              <p className="terminal-output">{entry.kind === 'identity' ? `${profile.name} · ${profile.role}` : entry.kind === 'bio' ? profile.bio : entry.output}</p>
             </div>
           ))}
         </div>
         <div className="terminal-input-area">
-          <p id="terminal-hint" className="terminal-hint">help를 입력해 둘러보세요.</p>
+          <p id="terminal-hint" className="terminal-hint">{en ? 'Type help to explore.' : 'help를 입력해 둘러보세요.'}</p>
           <form className="terminal-form" onSubmit={handleCommand}>
             <span className="terminal-prompt" aria-hidden="true">~ %</span>
             <input
-              aria-label="터미널 명령어"
+              aria-label={en ? 'Terminal command' : '터미널 명령어'}
               aria-describedby="terminal-hint"
               value={command}
               onChange={(event) => setCommand(event.target.value)}
@@ -94,7 +95,7 @@ export default function MacTerminal({ profile, skillCategories }) {
               maxLength={200}
               enterKeyHint="send"
             />
-            <button type="submit" aria-label="명령어 실행" title="명령어 실행"><CornerDownLeft size={16} aria-hidden="true" /></button>
+            <button type="submit" aria-label={en ? 'Run command' : '명령어 실행'} title={en ? 'Run command' : '명령어 실행'}><CornerDownLeft size={16} aria-hidden="true" /></button>
           </form>
         </div>
       </div>
