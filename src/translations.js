@@ -62,7 +62,7 @@ const translations = {
       { id: 'development', name: '개발 분야', items: [
         { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '본선 진출', detail: '교과연계 AI 탐구 부문 · 결과 대기 중' },
         { date: '2026', title: '카카오 AI TOP 100', badge: '준비 중' },
-        { date: '2025-2026', title: '비주얼캠프 도제활동', badge: '교육' },
+        { date: '2025-2026', title: '비주얼캠프 문해력·수리문해력 데모 프로젝트', badge: '개발 주도', detail: '도제활동 중 회사 데모 프로젝트를 주도하며, 문해력·수리문해력의 UI/UX 디자인부터 기능 개발과 보안까지 전 과정을 단독으로 담당했습니다.' },
         { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
         { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
         { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
@@ -144,7 +144,7 @@ const translations = {
       { id: 'development', name: 'Development', items: [
         { date: '2026', title: '8th National Student AI Competition', badge: 'Finalist', detail: 'Curriculum-linked AI Inquiry · Awaiting results' },
         { date: '2026', title: 'Kakao AI TOP 100', badge: 'In preparation' },
-        { date: '2025-2026', title: 'Visualcamp Apprenticeship', badge: 'Training' },
+        { date: '2025-2026', title: 'VisualCamp Literacy & Numeracy Demo Project', badge: 'Development lead', detail: 'Led the company demo project during my apprenticeship, independently handling the entire process from UI/UX design to feature development and security for literacy and numeracy.' },
         { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' },
         { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
         { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
