@@ -45,7 +45,75 @@ export const projects = [
   },
 ]
 export const moreProjects = [
-  {name:'lhLinux',summary:'Ubuntu 기반 WSL2 CLI 개발 환경.',url:'https://github.com/rem0116kjh/lhlinux'},
-  {name:'GCPT',summary:'AI 토론 시각화 프로젝트. 디자인과 일부 기능 구현에 참여.',url:'https://github.com/cksdud32/gcpt'},
-  {name:'KTspace',summary:'조건을 바꾸며 행성 궤도와 환경을 비교하는 교육용 시뮬레이터.',url:'https://github.com/rem0116kjh/KTspace'},
+  {
+    id: 'lhlinux', name: 'lhLinux', category: '개발 환경 · CLI', status: '오픈소스 · WSL2',
+    summary: '리버싱 도구와 AI CLI를 다시 설치할 수 있는 Ubuntu 기반 개발 환경.',
+    problem: 'CTF와 바이너리 분석을 시작할 때마다 분석 도구, Python 가상환경과 컨테이너 환경을 따로 준비해야 합니다. Windows에서 재구성할 수 있는 WSL2 환경과 설치 상태를 확인하는 CLI로 이 과정을 정리한 프로젝트입니다.',
+    role: 'WSL2 개발 환경 구성과 CLI 도구 개발 프로젝트. 공개 설치 스크립트·명령 구현·검증 문서를 중심으로 소개합니다.',
+    period: '공개 개발 버전 0.1 · 전체 개발 기간 미기재', team: '공개 개발 환경 프로젝트',
+    flow: ['PowerShell 설치 스크립트로 WSL2 환경 구성', '도구 설치 상태와 버전 확인', 'lab 작업 폴더와 Python 가상환경 사용', '명령 실행 기록 또는 정적 분석 입력 확인'],
+    tech: 'Ubuntu 24.04 LTS · WSL2 · PowerShell · Bash · Python · Docker · Z3 · GDB · radare2. Windows의 설치·실행 진입점과 Linux 내부 도구를 나누고, 반복 작업을 CLI 명령으로 묶었습니다.',
+    decision: '도구가 설치되어 있는지와 실제로 실행 가능한지는 다릅니다. CLI는 실행 파일 경로를 확인하고 radare2의 별칭 r2, R2AI의 플러그인 설치 형태도 구분합니다. 버전 조회에는 시간 제한을 두어 응답하지 않는 도구 하나가 전체 점검을 멈추지 않도록 합니다. AI 입력 준비는 별도 기능이며, 점검 명령만으로 AI 서버를 호출하지 않습니다.',
+    verification: 'README, scripts/lhlinux와 VALIDATION.md를 대조했습니다. 검증 문서에는 실제 WSL에서 Docker 실행, Z3 예제, 디버거와 CLI 동작을 확인한 기록이 있습니다. 이는 저장소에 기록된 검증이며 이번 포트폴리오 작업에서 Windows 설치를 다시 실행한 결과는 아닙니다.',
+    limit: '현재 지원 대상은 Windows x86-64 WSL2입니다. ARM64·설치 ISO·일반 PC 부팅 이미지는 지원하지 않습니다. AI 입력 축약은 분석 정보가 잘릴 수 있고, 문서에도 샘플 요약 정확도 미달이 기록되어 있어 CTF 풀이 속도나 정답률 개선 성과로 제시하지 않습니다.',
+    highlights: [
+      { title: '환경 점검을 명령으로 제공', body: 'reversing check·missing·versions로 누락된 도구와 버전을 구분합니다. workspace는 도구 경로와 Git 상태를 요약하고 JSON 출력도 지원합니다.' },
+      { title: '실행 결과를 남기는 작업 흐름', body: 'run 명령은 stdout·stderr, 실행 시간과 종료 코드를 별도로 기록합니다. 큰 출력 전체와 짧은 미리보기를 구분해 오류 원인을 다시 확인할 수 있게 구성했습니다.' },
+      { title: 'AI 요청 전에 입력을 확인', body: 'reversing ask는 바이너리를 실행하지 않고 정적 도구 출력을 모읍니다. dry-run으로 전송 내용을 먼저 확인하며, provider를 실행할 때는 입력을 stdin으로 전달합니다.' },
+    ],
+    images: [],
+    links: [
+      { label: 'GitHub 소스·설치 안내', url: 'https://github.com/rem0116kjh/lhlinux' },
+      { label: 'CLI 구현', url: 'https://github.com/rem0116kjh/lhlinux/blob/main/scripts/lhlinux' },
+      { label: '저장소 검증 기록', url: 'https://github.com/rem0116kjh/lhlinux/blob/main/VALIDATION.md' },
+    ],
+  },
+  {
+    id: 'gcpt', name: 'GCPT', category: 'AI · 협업 · 데스크톱', status: '실험 프로젝트',
+    summary: '여러 AI의 답변보다 논증이 바뀌는 과정을 관찰하는 토론 시각화.',
+    problem: '여러 모델의 답변을 나열하는 것만으로는 어떤 의견이 발전하거나 수용되었는지 파악하기 어렵습니다. GPT·Claude·Gemini의 토론에서 제안 사이의 관계와 질문의 변화를 추적해 읽을 수 있도록 만든 협업 프로젝트입니다.',
+    role: '디자인과 일부 기능 구현에 참여했습니다. 아래의 분석 엔진과 시각화 설명은 팀 프로젝트 전체의 구조이며, 모든 모듈을 개인이 구현했다는 의미는 아닙니다.',
+    period: '공개 개발 버전 0.1.0 · 개인 참여 기간 미기재', team: '팀 프로젝트 · 디자인·일부 기능 기여',
+    flow: ['질문과 토론 조건 설정', '모델별 제안과 반론 확인', '논증의 발전·수용·합성 관계 탐색', '질문의 변화와 최종 분석 결과 읽기'],
+    tech: 'TypeScript · React · Electron · electron-vite. 데스크톱 앱의 렌더러에서 분석 결과를 표시하며, TypeScript 자료형으로 논증 노드·관계와 분석 결과를 연결합니다. 저장소에는 시뮬레이션 실행과 실제 모델 호출 경로가 따로 있습니다.',
+    decision: '최종 답변만 보여주기보다 각 제안을 노드로, 지지·비판·발전·수용·합성을 관계로 표시합니다. ArgumentGraphView는 주요 논증 체인과 보조 노드를 구분하고, 별도의 분석 화면에서 질문 변화와 최종 해결 유형을 보여줍니다. 구조를 읽기 위한 도구로 설명하며 AI의 결론을 검증된 정답으로 취급하지 않습니다.',
+    verification: '공개 README, package.json, ArgumentGraphView.tsx와 final-resolution.ts의 분석 로직 일부를 확인했습니다. 저장소에는 타입 검사·단위 검사·앱 빌드 검사 명령이 정의되어 있습니다. 이번에는 모델 API를 호출하거나 Electron 앱을 실행하지 않았으므로 테스트 통과 수나 추론 품질 수치를 기재하지 않습니다.',
+    limit: '키워드와 관계 분석 결과는 실제 추론의 타당성을 보증하지 않습니다. 모델이 비슷한 답변에 수렴해도 사실 확인은 별도로 필요합니다. 개인 기여를 더 구체적으로 보여줄 화면별 변경 내역과 커밋 연결은 추가 정리가 필요합니다.',
+    highlights: [
+      { title: '읽을 수 있는 논증 관계', body: '모델별 제안과 의견의 관계를 카드·연결선으로 표현합니다. 긴 답변 목록에서 주요 체인과 합성 계보를 구분해 탐색하는 구성입니다.' },
+      { title: '질문 자체의 변화 추적', body: '원래 질문이 유지되는지, 관점이 바뀌는지, 중심 주제가 이동하는지를 분석하는 화면을 제공합니다. 최종 요약과 질문 변화 과정을 분리합니다.' },
+      { title: '합의되지 않은 결과도 표현', body: '팀의 설계는 승자를 고르는 방식보다 살아남은 분기·공유 구조·미해결 긴장을 함께 다룹니다. 합성된 결론과 해결되지 않은 긴장을 서로 다른 결과로 구분합니다.' },
+    ],
+    images: [],
+    links: [
+      { label: '팀 GitHub 저장소', url: 'https://github.com/cksdud32/gcpt' },
+      { label: '논증 관계 화면 구현', url: 'https://github.com/cksdud32/gcpt/blob/main/app/renderer/src/ArgumentGraphView.tsx' },
+      { label: '최종 결과 분석 구현', url: 'https://github.com/cksdud32/gcpt/blob/main/src/final-resolution.ts' },
+    ],
+  },
+  {
+    id: 'ktspace', name: 'KTspace · ORBIT LAB', category: '과학 교육 · 시뮬레이션', status: '공개 실험실',
+    summary: '질량·거리·빛의 조건을 바꾸며 천체 운동을 비교하는 과학 실험실.',
+    problem: '공식만 읽어서는 태양의 질량이 줄거나 거리가 바뀔 때 궤도가 어떻게 달라지는지 직관적으로 이해하기 어렵습니다. 학습자가 먼저 예상하고 조건을 바꾼 뒤 수치·그래프·탐구 노트로 결과를 비교하도록 구성했습니다.',
+    role: '교육용 태양계 시뮬레이션 개발 프로젝트. 학습 흐름과 Python 계산 엔진, 궤도 시각화·탐구 기록 기능을 공개 소스와 함께 소개합니다.',
+    period: '공개 저장소·실험실 제공 · 전체 개발 기간 미기재', team: '공개 교육용 시뮬레이션 프로젝트',
+    flow: ['쉽게 시작하기 또는 심화 탐구 선택', '질량·거리 등 실험 조건과 예상 설정', '계산된 궤적·수치·기준값 비교', '관찰 내용을 기록하고 CSV 또는 노트로 저장'],
+    tech: 'Python · Streamlit · HTML/JavaScript 기반 시각화. orbital_dynamics.py가 궤도 요소와 수치 적분을 담당하고, 기본·심화 화면은 공통 계산을 사용합니다. 기본 학습 흐름은 외부 AI API 없이 동작합니다.',
+    decision: '태양 질량의 순간 변화와 변경된 질량에 맞춘 원궤도 비교를 서로 다른 모델로 구분합니다. 해석식으로 계산한 궤도 요소와 Velocity Verlet 적분 궤적을 함께 보여주고 에너지 오차도 확인합니다. 열린 궤도에는 공전 주기를 제시하지 않아, 정의되지 않는 값을 학습자가 정상 결과로 오해하지 않도록 합니다.',
+    verification: '공개 README와 orbital_dynamics.py에서 입력 범위·유한수 검사, 원·타원·포물선·쌍곡선 구분, 적분 단계의 오차 계산을 확인했습니다. 저장소에 계산 엔진과 화면을 위한 테스트 파일이 공개되어 있습니다. 이번 포트폴리오 작업에서는 그 테스트나 외부 실험실을 재실행하지 않았습니다.',
+    limit: '교육을 위한 근사 모델입니다. 중심 천체를 고정하고 행성 사이의 상호작용과 상대론적 효과를 생략합니다. 시각화의 거리·천체 크기는 가독성을 위해 조정되며, 온도·자기권 결과를 실제 기후나 방사선량 예측으로 해석하지 않습니다.',
+    highlights: [
+      { title: '입문과 심화를 분리한 학습 흐름', body: '기본 화면은 빠른 비교 버튼과 쉬운 설명으로 시작합니다. 심화 탐구에서 초기 조건·이심률·에너지 오차와 모델 비교를 펼쳐 볼 수 있습니다.' },
+      { title: '계산과 AI 해설을 구분', body: '수치와 궤적은 Python 물리 모델이 계산합니다. 기본 실험실의 선택적 AI 기능은 계산값을 설명하는 역할이며, AI가 물리 계산 결과를 생성하지 않습니다.' },
+      { title: '실험을 기록하고 다시 비교', body: '예상→결과→관찰의 탐구 노트를 남기고 조건을 다시 실행합니다. 초기 조건과 궤적·오차를 CSV로 내보내 결과를 따로 살펴볼 수 있습니다.' },
+    ],
+    images: [],
+    links: [
+      { label: 'GitHub 소스·모델 가정', url: 'https://github.com/rem0116kjh/KTspace' },
+      { label: '궤도 계산 구현', url: 'https://github.com/rem0116kjh/KTspace/blob/main/orbital_dynamics.py' },
+      { label: '공개 실험실', url: 'https://ktspace.streamlit.app' },
+    ],
+  },
 ]
+
+export const allProjects = [...projects, ...moreProjects]
