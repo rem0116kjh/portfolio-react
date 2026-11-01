@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#6335a1" />
+    <meta name="theme-color" content="#09090b" />
     <meta name="description" content="김진형(Luka)의 개발 포트폴리오. GHAS 알리미, 웹 보안, AI 프로젝트와 대회·자격, 활동 기록을 소개합니다." />
     <meta property="og:image" content="https://rem0116kjh.github.io/portfolio-react/social.png" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -15,13 +15,13 @@
     <title>김진형 · Luka | 개발자 포트폴리오</title>
     <script>
       (() => {
-        let dark = false
+        let dark = true
         try {
           const saved = localStorage.getItem('darkMode')
           if (saved === 'true' || saved === 'false') dark = saved === 'true'
         } catch { /* Use the default theme when storage is unavailable. */ }
         document.documentElement.classList.toggle('dark', dark)
-        document.querySelector('meta[name="theme-color"]').content = '#6335a1'
+        document.querySelector('meta[name="theme-color"]').content = '#09090b'
       })()
     </script>
   </head>
