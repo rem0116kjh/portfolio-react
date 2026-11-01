@@ -1,4 +1,4 @@
-# 김진형 · Luka 포트폴리오
+# 김진형 · REM 포트폴리오
 
 React 19 + Vite 7 + React Router. 기존 GitHub Pages 배포 구조를 유지합니다.
 
