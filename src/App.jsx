@@ -13,22 +13,22 @@ const experienceStyles = "\n.experience-layout { display: grid; grid-template-co
 const experienceContent = {
   ko: {
     heading: '실무 경험', company: '비주얼캠프', period: '2024.04–현재 (재직 중) · 도제교육 및 현장실습',
-    intro: '교육 및 실습 과정에서 회사 데모 프로젝트 개발을 주도했습니다.',
-    roles: ['UI/UX 디자인', '기능 개발', '보안', '데모 프로젝트 주도'],
+    intro: '교육 및 실습 과정에서 문해력·수리 문해력 통합 학습 앱 데모 프로젝트 개발을 주도했습니다.',
+    roles: ['UI/UX 디자인', '기능 개발', '시선추적 기능', '앱 안정화', '보안', '데모 프로젝트 주도'],
     projects: [
-      ['문해력 학습 데모 프로젝트', '문해력 학습 앱의 UI/UX 디자인부터 학습 기능 개발과 보안까지 전 과정을 단독으로 담당하며 데모 프로젝트 개발을 주도했습니다.'],
-      ['수리문해력 학습 데모 프로젝트', '수리문해력 학습 화면과 문제 풀이 흐름을 설계하고, 기능 구현과 보안을 단독으로 담당했습니다.'],
-      ['학습 앱 검수 및 안정화', 'Android 실기기 테스트와 오류 수정을 진행하고, 오류 신고·검수 기능을 구현했습니다.'],
+      ['문해력·수리 문해력 통합 학습 앱 데모 프로젝트', '문해력과 수리 문해력을 하나의 학습 앱으로 통합하고, UI/UX 디자인부터 학습 화면과 문제 풀이 흐름 설계, 기능 개발과 보안까지 전 과정을 단독으로 담당하며 데모 프로젝트 개발을 주도했습니다.'],
+      ['시선추적 기능 도입', '학습 앱에 시선추적 기능을 도입하고, 학습 중 시선 데이터 수집과 학습 리포트 연동을 구현했습니다.'],
+      ['학습 앱 검수 및 안정화', 'Android 실기기 테스트와 오류 수정을 진행하고, 오류 신고·검수 기능을 구현하며 앱을 안정화했습니다.'],
     ],
   },
   en: {
     heading: 'Experience', company: 'VisualCamp', period: 'Apr 2024–Present (currently employed) · Apprenticeship education & hands-on practice',
-    intro: 'Led company demo project development during my apprenticeship.',
-    roles: ['UI/UX design', 'Feature development', 'Security', 'Demo project lead'],
+    intro: 'Led an integrated literacy and numeracy learning app demo project during my apprenticeship.',
+    roles: ['UI/UX design', 'Feature development', 'Eye tracking', 'App stabilization', 'Security', 'Demo project lead'],
     projects: [
-      ['Literacy learning demo', 'Led the demo project, independently handling the entire process from UI/UX design to learning feature development and security.'],
-      ['Numeracy learning demo', 'Designed the learning screens and problem-solving flow, and independently handled feature implementation and security.'],
-      ['App quality assurance & stabilization', 'Tested the app on Android devices, fixed issues, and implemented issue reporting and review features.'],
+      ['Integrated literacy & numeracy learning app demo', 'Integrated literacy and numeracy into a single learning app and led the demo project, independently handling UI/UX design, learning screens, problem-solving flows, feature development, and security.'],
+      ['Eye-tracking integration', 'Integrated eye-tracking features into the learning app, including gaze data collection during learning and learning report integration.'],
+      ['App quality assurance & stabilization', 'Stabilized the app through Android device testing, bug fixes, and issue reporting and review features.'],
     ],
   },
 }
