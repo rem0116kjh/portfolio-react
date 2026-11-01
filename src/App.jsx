@@ -12,7 +12,7 @@ const experienceStyles = "\n.experience-layout { display: grid; grid-template-co
 
 const experienceContent = {
   ko: {
-    heading: '실무 경험', company: '비주얼캠프', period: '2025–현재 · 도제교육 및 현장실습',
+    heading: '실무 경험', company: '비주얼캠프', period: '2024.04–현재 (재직 중) · 도제교육 및 현장실습',
     intro: '교육 및 실습 과정에서 회사 데모 프로젝트 개발을 주도했습니다.',
     roles: ['UI/UX 디자인', '기능 개발', '보안', '데모 프로젝트 주도'],
     projects: [
@@ -22,7 +22,7 @@ const experienceContent = {
     ],
   },
   en: {
-    heading: 'Experience', company: 'VisualCamp', period: '2025–Present · Apprenticeship education & hands-on practice',
+    heading: 'Experience', company: 'VisualCamp', period: 'Apr 2024–Present (currently employed) · Apprenticeship education & hands-on practice',
     intro: 'Led company demo project development during my apprenticeship.',
     roles: ['UI/UX design', 'Feature development', 'Security', 'Demo project lead'],
     projects: [
@@ -256,7 +256,7 @@ export default function App() {
         </div></section>
         <section id="activities" aria-labelledby="activities-heading" className="portfolio-section activities-section"><div className="portfolio-container">
           <SectionHeading id="activities-heading" number="05" aside="OUTSIDE THE EDITOR">{sections.activities}</SectionHeading>
-          <div className="record-groups-grid">{activityGroups.map((originalGroup) => ({ ...originalGroup, items: originalGroup.items.map((item) => /비주얼캠프|Visual[Cc]amp/.test(item.title) ? { ...item, title: en ? 'VisualCamp Apprenticeship' : '비주얼캠프 도제활동', badge: en ? 'Education & practice' : '교육 및 실습', detail: en ? 'Literacy and numeracy demo development · See Experience' : '문해력·수리문해력 데모 프로젝트 개발 · 실무 경험 섹션 참고' } : item) })).map((group) => <RecordGroup key={group.id} group={group} sectionId="activities" language={language} labels={labels} />)}</div>
+          <div className="record-groups-grid">{activityGroups.map((originalGroup) => ({ ...originalGroup, items: originalGroup.items.map((item) => /비주얼캠프|Visual[Cc]amp/.test(item.title) ? { ...item, date: '2024.04–', title: en ? 'VisualCamp Apprenticeship' : '비주얼캠프 도제활동', badge: en ? 'Education & practice' : '교육 및 실습', detail: en ? 'Literacy and numeracy demo development · See Experience' : '문해력·수리문해력 데모 프로젝트 개발 · 실무 경험 섹션 참고' } : item) })).map((group) => <RecordGroup key={group.id} group={group} sectionId="activities" language={language} labels={labels} />)}</div>
         </div></section>
         <section className="portfolio-section journal-section" aria-labelledby="journal-heading"><div className="portfolio-container">
           <SectionHeading id="journal-heading" number="06" aside="NOTES FROM MY JOURNEY">{sections.blog}</SectionHeading>
