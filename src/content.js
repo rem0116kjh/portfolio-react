@@ -1,7 +1,20 @@
 import timetable from './assets/projects/ghas-timetable.jpg'
 import schedule from './assets/projects/ghas-schedule.jpg'
 
-export const profile = { github: 'https://github.com/rem0116kjh', email: 'kjh08116@naver.com', blog: 'https://velog.io/@luka0116kjh/posts' }
+export const profile = {
+  github: 'https://github.com/rem0116kjh',
+  email: 'kjh08116@naver.com',
+  blog: 'https://velog.io/@luka0116kjh/posts',
+  school: '경기자동차과학고등학교',
+  department: '미래자동차과',
+  team: {
+    name: '활빈당(Hwalbin)',
+    role: 'CTF 팀원',
+    url: 'https://ctftime.org/team/304129',
+  },
+  securitySummary: 'CTF에 참여하며 취약점을 분석하고 가설을 검증하는 보안 역량을 쌓고 있습니다.',
+  description: '활빈당(Hwalbin) CTF 팀원 김진형(REM)의 포트폴리오. 경기자동차과학고등학교 미래자동차과 소속으로, 앱·웹 개발과 보안 분석 경험을 소개합니다.',
+}
 export const projects = [
   {
     id: 'ghas', name: 'GHAS 알리미', category: '학교생활 · 앱 / 웹', status: '스토어 공개',
