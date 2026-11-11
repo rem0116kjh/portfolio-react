@@ -21,7 +21,7 @@ function Home() {
     ['/experience', '경험·활동 이력', 'CTF·개발대회와 교육·실습에서 쌓은 경험.'],
   ]
   return <div className="home-index">
-    <h1>김진형 <span>— 개발자 REM</span></h1>
+    <h1>김진형 <span>— 개발자 &amp; 해커 REM</span></h1>
     <Affiliations/>
     <p className="home-description">사용자에게 필요한 서비스를 만들고,<br className="small-break"/> 실제 기기에서 검증하며 개선합니다.</p>
     <p className="home-description">{profile.securitySummary}</p>
@@ -43,7 +43,7 @@ function Security(){return <><header className="page-heading"><p className="eyeb
 function Notes(){return <><header className="page-heading"><p className="eyebrow">DEVELOPMENT NOTES</p><h1>만들며 남긴 기록</h1><p className="intro">공개 프로젝트의 설계와 구현을 따라갈 수 있는 자료입니다.</p></header><Section title="수정하기 전에 맥락부터"><p>SufficePatch는 관련 소스와 지침, 의존성, 테스트 후보와 Git 변경 내역을 모읍니다. AI의 출력에 앞서 어떤 자료를 제공하고 어떤 결과를 직접 검증할지 고민한 작업입니다.</p><Link to="/projects/suffice-patch">프로젝트와 설계 판단 읽기 →</Link></Section><Section title="함께 만든 AI 토론 시각화"><p>GCPT의 디자인과 일부 기능 구현에 참여했습니다. 전체 프로젝트의 구현을 개인 기여로 소개하지 않고 공개 소스와 함께 연결합니다.</p><External href="https://github.com/cksdud32/gcpt">GCPT 저장소</External></Section><Section title="기술 블로그"><External href={profile.blog}>Velog의 개발·보안 기록</External></Section></>}
 function Contact() {
   return <Section label="CONNECT" title="소개와 연락처">
-    <p>김진형 · REM. 앱과 웹을 만들고, AI 활용과 보안 분석을 공부하는 개발자입니다.</p>
+    <p>김진형 · REM. 앱과 웹을 만들고, AI 활용과 보안 분석을 공부하는 개발자이자 해커입니다.</p>
     <Affiliations/>
     <p className="contact-description">{profile.securitySummary}</p>
     <p>작업에 대한 질문이나 협업 이야기를 기다립니다.</p>
@@ -51,7 +51,7 @@ function Contact() {
   </Section>
 }
 function NotFound(){return <header className="page-heading"><p className="eyebrow">404</p><h1>페이지를 찾을 수 없습니다.</h1><p>주소를 확인하거나 프로젝트 목록에서 다시 찾아주세요.</p><Link to="/">홈으로 돌아가기 →</Link></header>}
-const titles={'/':'김진형 · REM | 개발자 포트폴리오','/projects':'프로젝트','/experience':'경험·활동 이력','/security':'보안 연구·CTF','/notes':'개발 노트','/about':'소개·연락처'}
+const titles={'/':'김진형 · REM | 개발자 & 해커 포트폴리오','/projects':'프로젝트','/experience':'경험·활동 이력','/security':'보안 연구·CTF','/notes':'개발 노트','/about':'소개·연락처'}
 function Layout(){const location=useLocation();const main=useRef(null);const [dark,setDark]=useState(()=>{try{return localStorage.getItem('darkMode')!=='false'}catch{return false}});useEffect(()=>{document.documentElement.classList.toggle('dark',dark);document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#09090b':'#fafafa');try{localStorage.setItem('darkMode',String(dark))}catch{/* optional storage */}},[dark]);useEffect(()=>{const p=allProjects.find(p=>location.pathname==='/projects/'+p.id);const title=p?.name||titles[location.pathname]||'페이지를 찾을 수 없습니다';document.title=location.pathname==='/'?title:title+' | 김진형 · REM';const desc=p?.summary||profile.description;document.querySelector('meta[name="description"]')?.setAttribute('content',desc);document.querySelector('meta[property="og:title"]')?.setAttribute('content',document.title);document.querySelector('meta[property="og:description"]')?.setAttribute('content',desc);window.scrollTo(0,0);main.current?.focus()},[location.pathname]);return <div className={location.pathname==='/'?'site-shell is-home':'site-shell'}><a className="skip-link" href="#main" onClick={e=>{e.preventDefault();main.current?.focus()}}>본문으로 바로가기</a><header className="site-header"><Link className="brand" to="/" aria-label="REM 홈"><span className="rem-mark" aria-hidden="true" style={{fontSize:14,fontWeight:600,letterSpacing:"-.06em",lineHeight:"32px"}}>REM</span></Link>{location.pathname!=='/'&&<Link className="header-back" to="/">홈으로</Link>}</header><main id="main" ref={main} tabIndex={-1}><Routes><Route path="/" element={<Home/>}/><Route path="/projects" element={<Projects/>}/><Route path="/projects/:id" element={<ProjectDetail/>}/><Route path="/experience" element={<Experience/>}/><Route path="/security" element={<Security/>}/><Route path="/notes" element={<Notes/>}/><Route path="/about" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes></main><footer><p>© {new Date().getFullYear()} 김진형 · <Link to="/notes">글</Link> / <External href={profile.github}>GitHub</External></p><button className="theme" aria-pressed={dark} onClick={()=>setDark(v=>!v)} aria-label={dark?'라이트 모드로 전환':'다크 모드로 전환'}>{dark?'☾':'☀'}</button></footer></div>}
 
 export default function App(){return <HashRouter><Layout/></HashRouter>}
