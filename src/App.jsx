@@ -23,8 +23,7 @@ function Home() {
   return <div className="home-index">
     <h1>김진형 <span>— 개발자 &amp; 해커 REM</span></h1>
     <Affiliations/>
-    <p className="home-description">사용자에게 필요한 서비스를 만들고,<br className="small-break"/> 실제 기기에서 검증하며 개선합니다.</p>
-    <p className="home-description">{profile.securitySummary}</p>
+    <p className="home-description">사용자에게 필요한 서비스를 만들고, 실제 기기에서 검증하며 사용성과 보안을 함께 개선합니다.</p>
     <nav className="index-navigation" aria-label="둘러보기">
       {entries.map(([to, title, description]) => <Link key={to} to={to}><span>{title}</span><small>{description}</small></Link>)}
     </nav>
