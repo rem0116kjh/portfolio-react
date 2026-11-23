@@ -1,56 +1,224 @@
-import { useEffect, useRef, useState } from 'react'
-import { HashRouter, Link, Route, Routes, useLocation, useParams } from 'react-router-dom'
-import { projects, profile, moreProjects, allProjects } from './content'
+import { useState, useEffect, useRef } from 'react'
+import { ArrowDown, ArrowUpRight, ChevronUp, Plus, Moon, Sun, Menu, X, Copy } from 'lucide-react'
+import MacTerminal from './MacTerminal.jsx'
+import ProjectShowcase from './ProjectShowcase.jsx'
 import './Portfolio.css'
-import ActivityHistory from './ActivityHistory'
+import translations from './translations.js'
+import astronaut from './assets/rem-world/astronaut.svg'
+import laptop from './assets/rem-world/laptop.svg'
 
-function External({href,children}) { return <a href={href} target="_blank" rel="noopener noreferrer">{children}<span aria-hidden="true"> ↗</span><span className="sr-only"> (새 탭)</span></a> }
-function ProjectList({compact=false}) {return <div className="project-list">{projects.map((p,i)=><Link className="project-row" key={p.id} to={'/projects/'+p.id}><span className="number">0{i+1}</span><div><div className="eyebrow">{p.category} · {p.status}</div><h3>{p.name}<span aria-hidden="true"> ↗</span></h3><p>{p.summary}</p>{!compact&&<p className="small">역할: {p.role}</p>}</div></Link>)}</div>}
-function Section({label,title,children}) {return <section className="section"><p className="eyebrow">{label}</p><h2>{title}</h2>{children}</section>}
-function Affiliations() {
-  return <div className="profile-affiliations">
-    <p className="profile-team"><Link to="/security">{profile.team.name}</Link><span> · {profile.team.role}</span></p>
-    <p className="profile-school"><span>{profile.school}</span>{' '}<span>{profile.department}</span></p>
-  </div>
+function RecordList({ items, unknownDateLabel, newTabLabel }) {
+  return (
+    <ul className="record-list">
+      {items.map((item) => (
+        <li key={item.title} className="record-row">
+          <span className="record-date" aria-label={item.date ? undefined : unknownDateLabel}>{item.date || '—'}</span>
+          <div className="record-title"><p>{item.url ? <a href={item.url} target="_blank" rel="noreferrer" aria-label={`${item.title} (${newTabLabel})`}>{item.title}</a> : item.title}</p>{item.detail && <p className="record-detail">{item.detail}</p>}</div>
+          <span className="record-badge">{item.badge}</span>
+        </li>
+      ))}
+    </ul>
+  )
 }
-function Home() {
-  const entries = [
-    ['/notes', '개발 노트', '서비스를 만들며 기록한 구현 과정과 기술적 판단.'],
-    ['/projects', '프로젝트', '학교생활 앱, 학습 앱 데모와 AI 개발 도구.'],
-    ['/security', '보안 연구·CTF', '가설을 세우고 검증하며 쌓은 분석 경험.'],
-    ['/experience', '경험·활동 이력', 'CTF·개발대회와 교육·실습에서 쌓은 경험.'],
+
+function SectionHeading({ id, children, number, aside }) {
+  return <div className="section-heading"><h2 id={id}><span className="section-dot" aria-hidden="true" />{number && <span>{number} / </span>}{children}</h2><span className="section-aside">{aside}</span></div>
+}
+
+function MoreButton({ expanded, onClick, target, count, label, language }) {
+  return (
+    <button type="button" className="more-button" aria-expanded={expanded} aria-controls={target}
+      aria-label={language === 'en' ? `${expanded ? 'Collapse' : 'Show more'} ${label}` : expanded ? `추가 ${label} 기록 접기` : `추가 ${label} 기록 ${count}개 더 보기`} onClick={onClick}>
+      {expanded ? <ChevronUp size={15} aria-hidden="true" /> : <Plus size={15} aria-hidden="true" />}
+      {expanded ? (language === 'en' ? 'Collapse' : '접기') : `${language === 'en' ? 'More' : '더 보기'} (${count})`}
+    </button>
+  )
+}
+
+function RecordGroup({ group, sectionId, language, labels }) {
+  const [expanded, setExpanded] = useState(false)
+  const moreItems = group.items.slice(3)
+  const headingId = `${sectionId}-${group.id}-heading`
+  const moreId = `${sectionId}-${group.id}-more`
+
+  return (
+    <section className="record-group" aria-labelledby={headingId}>
+      <div className="record-group-heading">
+        <h3 id={headingId}>{group.name}</h3>
+        {moreItems.length > 0 && <MoreButton language={language} expanded={expanded} onClick={() => setExpanded((v) => !v)} target={moreId} count={moreItems.length} label={group.name} />}
+      </div>
+      <RecordList unknownDateLabel={labels.unknownDate} newTabLabel={labels.newTab} items={group.items.slice(0, 3)} />
+      {moreItems.length > 0 && <div id={moreId} hidden={!expanded}><RecordList unknownDateLabel={labels.unknownDate} newTabLabel={labels.newTab} items={moreItems} /></div>}
+    </section>
+  )
+}
+
+export default function App() {
+  const [language, setLanguage] = useState(() => {
+    try { return localStorage.getItem('language') === 'en' ? 'en' : 'ko' } catch { return 'ko' }
+  })
+  const en = language === 'en'
+  const t = translations[language]
+  const { profile, projects, skills: skillCategories, awardGroups, activityGroups, sections, labels } = t
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [copyStatus, setCopyStatus] = useState('')
+  const menuRef = useRef(null)
+  const [isDark, setIsDark] = useState(() => {
+    try {
+      const saved = localStorage.getItem('darkMode')
+      if (saved === 'true' || saved === 'false') return saved === 'true'
+    } catch { /* Theme switching works without storage. */ }
+    return false
+  })
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', isDark)
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '#6a00ef')
+    try { localStorage.setItem('darkMode', JSON.stringify(isDark)) } catch { /* Storage is optional. */ }
+  }, [isDark])
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    document.title = en ? 'REM WORLD · Jinhyeong Kim | Developer Portfolio' : 'REM WORLD · 김진형 | 개발 포트폴리오'
+    const description = en
+      ? 'Jinhyeong Kim (Rem). A student developer turning curiosity into projects across software, AI, and cybersecurity.'
+      : '호기심을 코드로 만드는 학생 개발자 김진형(Rem)의 세계. 웹·앱·AI·보안 프로젝트와 대회·자격, 활동 기록.'
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description)
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description)
+    try { localStorage.setItem('language', language) } catch { /* Storage is optional. */ }
+  }, [language, en])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    function closeOnEscape(event) {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        menuRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [menuOpen])
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(profile.email)
+      setCopyStatus(en ? 'Email address copied.' : '이메일 주소를 복사했어요.')
+    } catch {
+      setCopyStatus(en ? 'Please select and copy the email address.' : '이메일 주소를 선택해 복사해 주세요.')
+    }
+  }
+
+  const navigation = [
+    ['about', en ? 'About' : '소개'],
+    ['projects', t.nav.projects],
+    ['stack', en ? 'Toolbox' : '기술'],
+    ['awards', sections.awards],
+    ['activities', sections.activities],
+    ['contact', en ? 'Contact' : '연락처'],
   ]
-  return <div className="home-index">
-    <h1>김진형 <span>— 개발자 &amp; 해커 REM</span></h1>
-    <Affiliations/>
-    <p className="home-description">사용자에게 필요한 서비스를 만들고, 실제 기기에서 검증하며 사용성과 보안을 함께 개선합니다.</p>
-    <nav className="index-navigation" aria-label="둘러보기">
-      {entries.map(([to, title, description]) => <Link key={to} to={to}><span>{title}</span><small>{description}</small></Link>)}
-    </nav>
-    <section className="home-social" aria-labelledby="social-title"><h2 id="social-title">소셜</h2><div>
-      <External href={profile.github}>GitHub <span>/rem0116kjh</span></External>
-      <External href={profile.blog}>Velog <span>개발 기록</span></External>
-      <a href={'mailto:'+profile.email}>Email <span>{profile.email}</span></a>
-      <Link to="/about">소개·연락처 <span>김진형 / REM</span></Link>
-    </div></section>
-  </div>
-}
-function ProjectDetail(){const {id}=useParams();const p=allProjects.find(p=>p.id===id);if(!p)return <NotFound/>;return <><Link className="back" to="/projects">← 프로젝트 목록</Link><header className="page-heading"><p className="eyebrow">{p.category} / {p.status}</p><h1>{p.name}</h1><p className="intro">{p.summary}</p><dl className="facts"><div><dt>기간·상태</dt><dd>{p.period}</dd></div><div><dt>프로젝트 형태</dt><dd>{p.team}</dd></div><div><dt>본인 역할</dt><dd>{p.role}</dd></div></dl></header><div className="prose"><Section title="문제와 대상 사용자"><p>{p.problem}</p></Section><Section title="주요 사용자 흐름"><ol className="flow">{p.flow.map(s=><li key={s}>{s}</li>)}</ol></Section>{p.images.length>0&&<Section title="실제 앱 화면"><div className="screens">{p.images.map(img=><figure key={img.src}><img src={img.src} alt={img.alt} loading="lazy"/><figcaption>{img.caption}</figcaption></figure>)}</div></Section>}<Section title="기술과 선택"><p>{p.tech}</p></Section><Section title="구현 과정과 판단"><p>{p.decision}</p></Section>{p.highlights?.length>0&&<Section title="주요 구현과 사용자 경험"><div className="implementation-notes">{p.highlights.map(item=><article key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}</div></Section>}<Section title="검증과 확인된 범위"><p>{p.verification}</p></Section><Section title="한계와 다음 개선"><p>{p.limit}</p></Section>{p.links.length>0&&<Section title="공개 자료"><ul className="links">{p.links.map(l=><li key={l.url}><External href={l.url}>{l.label}</External></li>)}</ul></Section>}</div><Link className="back" to="/projects">← 프로젝트 목록으로</Link></>}
-function Projects(){return <><header className="page-heading"><p className="eyebrow">PROJECTS</p><h1>문제에서 시작한 작업들</h1><p className="intro">사용자 흐름, 담당 범위, 확인 가능한 결과를 함께 소개합니다.</p></header><ProjectList/><Section title="다른 프로젝트"><div className="other-list">{moreProjects.map(p=><article key={p.name}><p className="eyebrow">{p.category} · {p.status}</p><h3><Link to={'/projects/'+p.id}>{p.name} →</Link></h3><p>{p.summary}</p><p className="other-project-context">{p.problem}</p><Link className="text-link" to={'/projects/'+p.id}>구현 과정과 공개 자료 보기 →</Link></article>)}</div></Section></>}
-function Experience(){return <><header className="page-heading"><p className="eyebrow">EXPERIENCE / RESUME</p><h1>경험·활동 이력</h1><p className="intro">서비스 개발부터 CTF·개발대회, 교육과 커뮤니티 활동까지 정리합니다.</p><button className="print-button" onClick={()=>window.print()}>이 페이지 인쇄 / PDF 저장</button></header><Section title="비주얼캠프 · 도제 교육·실습"><p>교육·실습 과정에서 학습 앱 데모의 UI와 기능 개발, 시선추적 도입과 Android 앱 안정화 작업을 경험했습니다.</p><p>ReadIn AI는 문해력과 수리 문해력을 한 프로젝트 사례로 소개합니다. 실제 앱 통합 완료나 회사 프로젝트 전체를 단독 개발했다는 의미로 사용하지 않습니다.</p><Link to="/projects/readin">역할과 확인 범위 자세히 보기 →</Link></Section><Section title="작업에 사용하는 기술"><dl className="facts"><div><dt>앱·웹</dt><dd>학습 앱과 학교생활 앱의 화면·사용자 흐름 구현. 이 사이트는 React·Vite로 제작했습니다.</dd></div><div><dt>AI 활용</dt><dd>AI 도구에 전달할 프로젝트 맥락 수집과 토론 시각화 작업. 생성 결과와 검증된 결과를 구분합니다.</dd></div><div><dt>보안 분석</dt><dd>CTF와 보안 교육에서 가설을 세우고 분석·검증하는 접근을 익혔습니다.</dd></div></dl></Section><ActivityHistory/><Contact/></>}
-function Security(){return <><header className="page-heading"><p className="eyebrow">SECURITY / CTF</p><h1>가설을 검증하는 연습</h1><p className="intro">보안 연구와 CTF에서 익힌 분석 과정을 개발의 문제 해결에 연결합니다.</p></header><Section title="분석 방식"><ol className="research-steps"><li><h3>문제 상황</h3><p>관찰한 현상과 정상 동작의 차이를 기록합니다.</p></li><li><h3>가설</h3><p>입력, 경계 조건과 구성 요소 사이의 신뢰 관계를 살핍니다.</p></li><li><h3>분석과 검증</h3><p>작은 재현 사례로 가설을 확인하고 실패한 조건을 남깁니다.</p></li><li><h3>해결과 배운 점</h3><p>원인과 재현 조건을 설명하고, 개발 시 적용할 검증 기준으로 정리합니다.</p></li></ol></Section><Section title="팀 활동과 공개 기록"><h3>{profile.team.name} · {profile.team.role}</h3><p>팀의 대회 결과와 개인이 수행한 분석은 구분해 기록합니다. 공식 결과와 개인 기여 근거가 함께 확인된 기록부터 추가합니다.</p><External href={profile.team.url}>CTFtime 팀 프로필</External></Section><ActivityHistory only="ctf"/><Section title="개발에 연결하기"><p>문제가 발생한 조건을 좁히고 재현 가능하게 남기는 습관은 앱 오류 수정에도 이어집니다. 내부 서비스의 비공개 취약점, 계정 정보와 민감한 데이터는 공개 기록에 포함하지 않습니다.</p></Section></>}
-function Notes(){return <><header className="page-heading"><p className="eyebrow">DEVELOPMENT NOTES</p><h1>만들며 남긴 기록</h1><p className="intro">공개 프로젝트의 설계와 구현을 따라갈 수 있는 자료입니다.</p></header><Section title="수정하기 전에 맥락부터"><p>SufficePatch는 관련 소스와 지침, 의존성, 테스트 후보와 Git 변경 내역을 모읍니다. AI의 출력에 앞서 어떤 자료를 제공하고 어떤 결과를 직접 검증할지 고민한 작업입니다.</p><Link to="/projects/suffice-patch">프로젝트와 설계 판단 읽기 →</Link></Section><Section title="함께 만든 AI 토론 시각화"><p>GCPT의 디자인과 일부 기능 구현에 참여했습니다. 전체 프로젝트의 구현을 개인 기여로 소개하지 않고 공개 소스와 함께 연결합니다.</p><External href="https://github.com/cksdud32/gcpt">GCPT 저장소</External></Section><Section title="기술 블로그"><External href={profile.blog}>Velog의 개발·보안 기록</External></Section></>}
-function Contact() {
-  return <Section label="CONNECT" title="소개와 연락처">
-    <p>김진형 · REM. 앱과 웹을 만들고, AI 활용과 보안 분석을 공부하는 개발자이자 해커입니다.</p>
-    <Affiliations/>
-    <p className="contact-description">{profile.securitySummary}</p>
-    <p>작업에 대한 질문이나 협업 이야기를 기다립니다.</p>
-    <div className="contact-links"><a href={'mailto:'+profile.email}>{profile.email} ↗</a><External href={profile.github}>GitHub</External><External href={profile.blog}>Velog</External></div>
-  </Section>
-}
-function NotFound(){return <header className="page-heading"><p className="eyebrow">404</p><h1>페이지를 찾을 수 없습니다.</h1><p>주소를 확인하거나 프로젝트 목록에서 다시 찾아주세요.</p><Link to="/">홈으로 돌아가기 →</Link></header>}
-const titles={'/':'김진형 · REM | 개발자 & 해커 포트폴리오','/projects':'프로젝트','/experience':'경험·활동 이력','/security':'보안 연구·CTF','/notes':'개발 노트','/about':'소개·연락처'}
-function Layout(){const location=useLocation();const main=useRef(null);const [dark,setDark]=useState(()=>{try{return localStorage.getItem('darkMode')!=='false'}catch{return false}});useEffect(()=>{document.documentElement.classList.toggle('dark',dark);document.querySelector('meta[name="theme-color"]')?.setAttribute('content',dark?'#09090b':'#fafafa');try{localStorage.setItem('darkMode',String(dark))}catch{/* optional storage */}},[dark]);useEffect(()=>{const p=allProjects.find(p=>location.pathname==='/projects/'+p.id);const title=p?.name||titles[location.pathname]||'페이지를 찾을 수 없습니다';document.title=location.pathname==='/'?title:title+' | 김진형 · REM';const desc=p?.summary||profile.description;document.querySelector('meta[name="description"]')?.setAttribute('content',desc);document.querySelector('meta[property="og:title"]')?.setAttribute('content',document.title);document.querySelector('meta[property="og:description"]')?.setAttribute('content',desc);window.scrollTo(0,0);main.current?.focus()},[location.pathname]);return <div className={location.pathname==='/'?'site-shell is-home':'site-shell'}><a className="skip-link" href="#main" onClick={e=>{e.preventDefault();main.current?.focus()}}>본문으로 바로가기</a><header className="site-header"><Link className="brand" to="/" aria-label="REM 홈"><span className="rem-mark" aria-hidden="true" style={{fontSize:14,fontWeight:600,letterSpacing:"-.06em",lineHeight:"32px"}}>REM</span></Link>{location.pathname!=='/'&&<Link className="header-back" to="/">홈으로</Link>}</header><main id="main" ref={main} tabIndex={-1}><Routes><Route path="/" element={<Home/>}/><Route path="/projects" element={<Projects/>}/><Route path="/projects/:id" element={<ProjectDetail/>}/><Route path="/experience" element={<Experience/>}/><Route path="/security" element={<Security/>}/><Route path="/notes" element={<Notes/>}/><Route path="/about" element={<Contact/>}/><Route path="*" element={<NotFound/>}/></Routes></main><footer><p>© {new Date().getFullYear()} 김진형 · <Link to="/notes">글</Link> / <External href={profile.github}>GitHub</External></p><button className="theme" aria-pressed={dark} onClick={()=>setDark(v=>!v)} aria-label={dark?'라이트 모드로 전환':'다크 모드로 전환'}>{dark?'☾':'☀'}</button></footer></div>}
 
-export default function App(){return <HashRouter><Layout/></HashRouter>}
+  return (
+    <div className="portfolio-page">
+      <a className="skip-link" href="#main">{t.skipLink}</a>
+      <header className="site-header">
+        <div className="portfolio-container header-inner">
+          <a href="#top" className="header-welcome">WELCOME TO REM WORLD</a>
+          <a href="#top" className="site-logo" aria-label={en ? 'Rem World home' : 'Rem World 홈'}><span>REM</span><span>WORLD</span></a>
+          <div className="header-controls">
+            <span className="header-location">SEOUL · KR <span aria-hidden="true">✳</span></span>
+            <button type="button" className="language-toggle" aria-label={t.languageLabel} onClick={() => { setLanguage(en ? 'ko' : 'en'); setCopyStatus('') }}>{t.languageButton}</button>
+            <button type="button" className="theme-toggle" onClick={() => setIsDark((current) => !current)}
+              aria-label={en ? (isDark ? 'Switch to light mode' : 'Switch to dark mode') : (isDark ? '라이트 모드로 전환' : '다크 모드로 전환')}>
+              {isDark ? <Sun size={17} aria-hidden="true" /> : <Moon size={17} aria-hidden="true" />}
+            </button>
+            <button ref={menuRef} type="button" className="menu-toggle" aria-expanded={menuOpen} aria-controls="site-nav"
+              aria-label={en ? (menuOpen ? 'Close menu' : 'Open menu') : (menuOpen ? '메뉴 닫기' : '메뉴 열기')}
+              onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={25} aria-hidden="true" /> : <Menu size={25} aria-hidden="true" />}</button>
+          </div>
+        </div>
+        <nav id="site-nav" className="site-nav" aria-label={t.navLabel} hidden={!menuOpen}>
+          <div className="portfolio-container"><p>EXPLORE MY WORLD</p><div className="nav-grid">{navigation.map(([id, label], index) => (
+            <a key={id} href={'#' + id} onClick={() => setMenuOpen(false)}><span className="nav-number">0{index + 1}</span>{label}<ArrowUpRight size={22} aria-hidden="true" /></a>
+          ))}</div></div>
+        </nav>
+      </header>
+
+      <main id="main" tabIndex={-1}>
+        <section id="top" className="portfolio-hero" aria-labelledby="hero-heading">
+          <div className="hero-universe"><div className="portfolio-container hero-inner">
+            <div className="hero-copy">
+              <p className="hero-kicker"><span aria-hidden="true" />PROGRAMMER · BUILDER · HACKER</p>
+              <p className="hero-welcome">HELLO, I’M REM.</p>
+              <h1 id="hero-heading">WELCOME TO<br /><span>REM WORLD.</span></h1>
+              <p className="hero-description">{en ? <><strong>I’m Jinhyeong Kim, a student developer.</strong><br />I build across web, apps, AI, and security.</> : <><strong>호기심을 코드로 만드는 학생 개발자, 김진형.</strong><br />웹과 앱을 만들고, AI와 보안의 세계를 탐구합니다.</>}</p>
+              <div className="hero-actions">
+                <a href="#projects" className="primary-link">{en ? 'Explore my work' : '프로젝트 둘러보기'}<ArrowUpRight size={18} aria-hidden="true" /></a>
+                <a href="#about" className="hero-about-link">{en ? 'Meet Rem' : '나를 소개합니다'}<ArrowDown size={16} aria-hidden="true" /></a>
+              </div>
+            </div>
+            <div className="hero-visual" aria-hidden="true"><span className="hero-orbit" /><span className="hero-orbit orbit-cross" /><img src={astronaut} alt="" width="560" height="510" fetchPriority="high" /><span className="hero-spark">✦</span><span className="hero-visual-label">EXPLORING THE UNKNOWN</span></div>
+          </div></div>
+          <a href="#projects" className="project-gate" aria-label={en ? 'Explore selected projects' : '만들고 참여한 프로젝트 보기'}>
+            <div className="portfolio-container gate-inner">
+              <div><p className="gate-kicker">SELECTED WORKS <span>/ {String(projects.length).padStart(2, '0')} PROJECTS</span></p><h2>I BUILD<br className="mobile-break" /> THINGS.</h2><p className="gate-description">{en ? 'Small ideas. Real projects. Always curious.' : '작은 아이디어에서 시작해, 직접 만든 작은 세계들.'}</p></div>
+              <div className="gate-visual" aria-hidden="true"><span className="gate-burst">✳</span><img src={laptop} alt="" width="660" height="430" /><span className="gate-sticker">MADE WITH<br />CURIOSITY ↗</span></div>
+              <ArrowUpRight className="gate-arrow" size={32} aria-hidden="true" />
+            </div>
+          </a>
+        </section>
+        <div className="curiosity-strip" aria-hidden="true"><span>STAY CURIOUS</span><b>✳</b><span>KEEP BUILDING</span><b>✳</b><span>BREAK THE ORDINARY</span><b>✳</b><span>STAY CURIOUS</span></div>
+
+        <section id="about" aria-labelledby="about-heading" className="portfolio-section about-section"><div className="portfolio-container">
+          <SectionHeading id="about-heading" number="01" aside="A LITTLE ABOUT MY WORLD">{en ? 'About me' : '나를 소개합니다'}</SectionHeading>
+          <div className="about-intro">
+            <div className="about-manifesto"><p>HELLO, I’M REM.</p><h3>{en ? <>Build.<br />Break.<br /><span>Learn again.</span></> : <>만들고,<br />부수고,<br /><span>다시 배우다.</span></>}</h3><p className="name-tag">김진형 <span>JINHYEONG KIM</span></p></div>
+            <div className="about-prose"><h3>{en ? 'Curiosity starts with making.' : '궁금한 건, 직접 만들어 봅니다.'}</h3><p>{profile.bio}</p><p>{en ? <>From <strong>GHAS Alimi</strong> for school life to an open-source Linux environment and AI debate visualization, I explore my interests by building.</> : <>학교생활을 돕는 <strong>GHAS 알리미</strong>부터 오픈소스 Linux 환경, AI 토론 시각화까지. 궁금한 것을 직접 만들며 제 관심사의 범위를 넓혀가고 있습니다.</>}</p>
+              <dl className="about-facts"><div><dt>{profile.schoolLabel}</dt><dd>{profile.school}</dd></div><div><dt>{profile.majorLabel}</dt><dd>{profile.major}</dd></div><div><dt>{profile.goalLabel}</dt><dd>{profile.goal}</dd></div></dl>
+              <a className="text-link" href={profile.github} target="_blank" rel="noreferrer">{en ? 'Find me on GitHub' : 'GITHUB에서 만나기'}<ArrowUpRight size={18} aria-hidden="true" /></a>
+            </div>
+          </div>
+          <div className="terminal-intro"><p>ANOTHER WAY TO SAY HELLO.</p><span>{en ? 'Type help and explore.' : 'help를 입력해 나를 더 알아보세요.'}</span></div>
+          <MacTerminal profile={profile} skillCategories={skillCategories} language={language} />
+        </div></section>
+
+        <section id="stack" aria-labelledby="stack-heading" className="portfolio-section stack-section"><div className="portfolio-container">
+          <SectionHeading id="stack-heading" aside="ALWAYS ADDING TO THE TOOLBOX">{en ? 'My toolbox' : '주로 쓰는 기술'}</SectionHeading>
+          <div className="stack-grid">{skillCategories.map((category) => (
+            <div className="stack-group" key={category.name}><h3>{category.name}</h3><ul className="stack-items">{category.items.map((skill) => <li key={skill}>{skill}</li>)}</ul></div>
+          ))}</div>
+        </div></section>
+
+        <ProjectShowcase projects={projects} github={profile.github} language={language} />
+
+        <section id="awards" aria-labelledby="awards-heading" className="portfolio-section records-section"><div className="portfolio-container">
+          <SectionHeading id="awards-heading" number="03" aside="MILESTONES ALONG THE WAY">{sections.awards}</SectionHeading>
+          <p className="records-title">LEARNING.<br /><span>LEVELING UP.</span></p>
+          <div className="record-groups-grid">{awardGroups.map((group) => <RecordGroup key={group.id} group={group} sectionId="awards" language={language} labels={labels} />)}</div>
+        </div></section>
+        <section id="activities" aria-labelledby="activities-heading" className="portfolio-section activities-section"><div className="portfolio-container">
+          <SectionHeading id="activities-heading" number="04" aside="OUTSIDE THE EDITOR">{sections.activities}</SectionHeading>
+          <div className="record-groups-grid">{activityGroups.map((group) => <RecordGroup key={group.id} group={group} sectionId="activities" language={language} labels={labels} />)}</div>
+        </div></section>
+        <section className="portfolio-section journal-section" aria-labelledby="journal-heading"><div className="portfolio-container">
+          <SectionHeading id="journal-heading" number="05" aside="NOTES FROM MY JOURNEY">{sections.blog}</SectionHeading>
+          <a href={profile.velog} target="_blank" rel="noreferrer" className="journal-link"><div><span>THE LEARNING LOG ↗</span><h3>{sections.blogTitle}</h3><p>{sections.blogDescription}</p></div><ArrowUpRight size={36} aria-hidden="true" /></a>
+        </div></section>
+
+        <section id="contact" className="portfolio-section contact-section" aria-labelledby="contact-heading"><div className="portfolio-container">
+          <SectionHeading id="contact-heading" number="06" aside="GREAT THINGS START WITH A HELLO">{en ? 'Make a connection' : '연락하기'}</SectionHeading>
+          <p className="contact-copy">{en ? <>Have a project in mind?<br />Let’s build something, or just say hello.</> : <>새로운 아이디어, 재미있는 실험, 함께할 프로젝트.<br />개발 이야기부터 가벼운 인사까지, 편하게 연락해 주세요.</>}</p>
+          <a className="contact-cta" href={'mailto:' + profile.email}><span>LET’S MAKE<br /><span>SOMETHING.</span></span><span className="contact-arrow"><ArrowUpRight aria-hidden="true" /></span><span className="sr-only">{en ? 'Send an email to Jinhyeong Kim' : '김진형에게 이메일 보내기'}</span></a>
+          <ul className="social-links">
+            <li><a href={profile.github} target="_blank" rel="noreferrer"><span>GitHub</span><span>@rem0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+            <li><a href={'mailto:' + profile.email}><span>Email</span><span>{profile.email}</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+            <li><a href={profile.velog} target="_blank" rel="noreferrer"><span>Velog</span><span>@luka0116kjh</span><ArrowUpRight size={17} aria-hidden="true" /></a></li>
+          </ul>
+          <div className="email-copy"><button type="button" onClick={copyEmail}><Copy size={15} aria-hidden="true" />{en ? 'COPY EMAIL' : '이메일 주소 복사'}</button><span role="status" aria-live="polite">{copyStatus}</span></div>
+        </div></section>
+      </main>
+      <footer className="site-footer"><div className="portfolio-container"><a className="footer-logo" href="#top">REM WORLD.</a><p>© {new Date().getFullYear()} REM. BUILT WITH CURIOSITY.</p><a href="#top">{en ? 'BACK TO TOP ↑' : '맨 위로 ↑'}</a></div></footer>
+    </div>
+  )
+}
