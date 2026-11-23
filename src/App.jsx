@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ArrowDown, ArrowUpRight, ChevronUp, Plus, Moon, Sun, Menu, X, Copy } from 'lucide-react'
 import MacTerminal from './MacTerminal.jsx'
 import ProjectShowcase from './ProjectShowcase.jsx'
+import CompanyExperience from './CompanyExperience.jsx'
 import './Portfolio.css'
 import translations from './translations.js'
 import astronaut from './assets/rem-world/astronaut.svg'
@@ -59,7 +60,7 @@ export default function App() {
   })
   const en = language === 'en'
   const t = translations[language]
-  const { profile, projects, skills: skillCategories, awardGroups, activityGroups, sections, labels } = t
+  const { profile, projects, experience, skills: skillCategories, awardGroups, activityGroups, sections, labels } = t
   const [menuOpen, setMenuOpen] = useState(false)
   const [copyStatus, setCopyStatus] = useState('')
   const menuRef = useRef(null)
@@ -112,6 +113,7 @@ export default function App() {
 
   const navigation = [
     ['about', en ? 'About' : '소개'],
+    ['experience', sections.experience],
     ['projects', t.nav.projects],
     ['stack', en ? 'Toolbox' : '기술'],
     ['awards', sections.awards],
@@ -188,6 +190,11 @@ export default function App() {
           <div className="stack-grid">{skillCategories.map((category) => (
             <div className="stack-group" key={category.name}><h3>{category.name}</h3><ul className="stack-items">{category.items.map((skill) => <li key={skill}>{skill}</li>)}</ul></div>
           ))}</div>
+        </div></section>
+
+        <section id="experience" aria-labelledby="experience-heading" className="portfolio-section experience-section"><div className="portfolio-container">
+          <SectionHeading id="experience-heading" aside="BUILDING IN THE REAL WORLD">{sections.experience}</SectionHeading>
+          <CompanyExperience experience={experience} />
         </div></section>
 
         <ProjectShowcase projects={projects} github={profile.github} language={language} />

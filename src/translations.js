@@ -18,7 +18,7 @@ const translations = {
     },
     sections: {
       projects: '프로젝트', projectsDescription: '생활 속 불편을 해결하는 앱부터 웹 보안과 AI 실험까지, 직접 만들고 참여한 작업입니다.', showcaseTitle: '직접 만들고, 함께 만든 것들', githubMore: 'GitHub에서 더 보기',
-      stack: '기술 스택', awards: '대회 · 자격', activities: '활동', blog: '배우고 기록하기',
+      stack: '기술 스택', experience: '실무 경험', awards: '대회 · 자격', activities: '활동', blog: '배우고 기록하기',
       blogTitle: 'Velog 기술 블로그', blogDescription: '개발, 보안, AI 관련 기술 글',
     },
     skills: [
@@ -36,8 +36,20 @@ const translations = {
       { id: 'suffice-patch', name: 'SufficePatch', description: 'Codex와 Claude Code가 코드 수정 전에 필요한 소스·프로젝트 지침·의존성·테스트 후보·Git 변경 내역을 모으는 스킬입니다. 다언어·모노레포 탐색과 요약·JSON 출력을 지원합니다.', category: '개발 도구 · AI 에이전트 스킬', tags: ['Python', 'Codex', 'Claude Code'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/suffice-patch' }, { label: '스킬 설명', url: 'https://rem0116kjh.github.io/suffice-patch/' }] },
       { id: 'ktspace', name: 'KTspace', description: '태양의 질량·거리·밝기 등 조건을 바꾸며 행성 궤도와 지구 환경을 비교하는 교육용 태양계 시뮬레이터입니다. 10가지 실험, 탐구 노트와 CSV 내보내기를 제공합니다.', category: '과학 교육 · 시뮬레이션', tags: ['Python', 'Streamlit', 'Physics'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/KTspace' }] },
     ],
+    experience: {
+      company: '비주얼캠프', logoAlt: '비주얼캠프 VisualCamp 로고',
+      period: '2024.04 – 현재 (재직 중)', program: '도제교육 및 현장실습',
+      description: '문해력·수리문해력 통합 학습 앱 데모를 주도하며, 시선추적 기술을 실제 학습 경험으로 연결합니다.',
+      roles: ['UI/UX 디자인', '앱·기능 개발', '시선추적 연동', '보안·안정화'],
+      projects: [
+        { id: 'literacy-demo', title: '문해력·수리문해력 통합 학습 앱 데모', status: '데모 프로젝트 · 개발 주도', description: '문해력과 수리문해력을 하나의 학습 앱으로 구성하고, 데모 프로젝트의 UI/UX 디자인부터 학습 화면과 문제 풀이 흐름 설계, 기능 개발과 보안까지 전 과정을 단독으로 담당했습니다.' },
+        { id: 'eye-tracking', title: '시선추적 기능 및 학습 리포트 연동', status: '시선 데이터 · 학습 리포트', description: 'VisualCamp SDK를 연동해 캘리브레이션과 학습 중 시선 데이터 수집을 구현하고, 읽기 활동과 학습 리포트에 연결했습니다.' },
+        { id: 'app-quality', title: '실기기 검수 및 앱 안정화', status: 'Android 실기기 · 지속 개선', description: 'Android 실기기에서 시선 좌표·미러링·노이즈를 점검하고 오류를 수정했습니다. 오류 신고·검수 기능을 구현하며 학습 앱의 안정성을 개선했습니다.' },
+      ],
+    },
     awardGroups: [
       { id: 'development', name: '개발 분야', items: [
+        { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '은상', detail: '교과연계 AI 탐구 부문' },
         { date: '2026.07', title: '정보처리산업기사', badge: '합격' },
         { title: '총장배 로봇 프로그래밍 경진대회', badge: '3등' },
         { title: '미래를 그리는 알고리즘 경진대회', badge: '2등' },
@@ -60,9 +72,6 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: '개발 분야', items: [
-        { date: '2026', title: '제8회 전국 학생 AI 경진대회', badge: '본선 진출', detail: '교과연계 AI 탐구 부문 · 결과 대기 중' },
-        { date: '2026', title: '카카오 AI TOP 100', badge: '준비 중' },
-        { date: '2025-2026', title: '비주얼캠프 문해력·수리문해력 데모 프로젝트', badge: '개발 주도', detail: '도제활동 중 회사 데모 프로젝트를 주도하며, 문해력·수리문해력의 UI/UX 디자인부터 기능 개발과 보안까지 전 과정을 단독으로 담당했습니다.' },
         { date: '2026', title: '흐르르 애플리케이션 플랫폼', badge: '개발' },
         { date: '2024', title: '인공지능 창업체험과 특강', badge: '교육' },
         { date: '2024', title: '앱인벤터·메이커 활동', badge: '프로젝트' },
@@ -103,7 +112,7 @@ const translations = {
     },
     sections: {
       projects: 'Projects', projectsDescription: 'A selection of things I have built or contributed to—from apps that solve everyday problems to web security and AI experiments.', showcaseTitle: 'Things I have built and contributed to', githubMore: 'More on GitHub',
-      stack: 'Tech Stack', awards: 'Awards & Certifications', activities: 'Activities', blog: 'Learn & Share',
+      stack: 'Tech Stack', experience: 'Experience', awards: 'Awards & Certifications', activities: 'Activities', blog: 'Learn & Share',
       blogTitle: 'Velog Tech Blog', blogDescription: 'Technical writing on development, security, and AI',
     },
     skills: [
@@ -118,8 +127,20 @@ const translations = {
       { id: 'suffice-patch', name: 'SufficePatch', description: 'A skill that helps Codex and Claude Code gather source files, project instructions, dependencies, test candidates, and Git changes before editing. Supports multiple languages, monorepos, and summary or JSON output.', category: 'Developer tools · AI agent skill', tags: ['Python', 'Codex', 'Claude Code'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/suffice-patch' }, { label: 'Skill guide', url: 'https://rem0116kjh.github.io/suffice-patch/' }] },
       { id: 'ktspace', name: 'KTspace', description: 'An educational solar system simulator for comparing planetary orbits and Earth conditions by changing solar mass, distance, brightness, and more. Includes 10 experiments, inquiry notes, and CSV export.', category: 'Science education · Simulation', tags: ['Python', 'Streamlit', 'Physics'], links: [{ label: 'GitHub', url: 'https://github.com/rem0116kjh/KTspace' }] },
     ],
+    experience: {
+      company: 'VisualCamp', logoAlt: 'VisualCamp company logo',
+      period: 'Apr 2024 – Present', program: 'Apprenticeship education & hands-on practice',
+      description: 'I lead an integrated literacy and numeracy learning app demo, connecting eye-tracking technology with the learning experience.',
+      roles: ['UI/UX design', 'App development', 'Eye-tracking integration', 'Security & stability'],
+      projects: [
+        { id: 'literacy-demo', title: 'Integrated literacy & numeracy learning app demo', status: 'Demo project · Development lead', description: 'Integrated literacy and numeracy into a single learning app. Independently handled the demo project from UI/UX design, learning screens, and problem-solving flows to feature development and security.' },
+        { id: 'eye-tracking', title: 'Eye tracking & learning report integration', status: 'Gaze data · Learning reports', description: 'Integrated the VisualCamp SDK for calibration and gaze data collection during learning, connecting the data with reading activities and learning reports.' },
+        { id: 'app-quality', title: 'Device testing & app stabilization', status: 'Android devices · Ongoing improvements', description: 'Checked gaze coordinates, mirroring, and noise on Android devices and fixed issues. Improved app stability by implementing issue reporting and review features.' },
+      ],
+    },
     awardGroups: [
       { id: 'development', name: 'Development', items: [
+        { date: '2026', title: '8th National Student AI Competition', badge: 'Silver Award', detail: 'Curriculum-linked AI Inquiry' },
         { date: '2026.07', title: 'Industrial Engineer Information Processing', badge: 'Passed' },
         { title: 'Presidential Robot Programming Contest', badge: '3rd place' },
         { title: 'Future Algorithm Contest', badge: '2nd place' },
@@ -142,9 +163,6 @@ const translations = {
     ],
     activityGroups: [
       { id: 'development', name: 'Development', items: [
-        { date: '2026', title: '8th National Student AI Competition', badge: 'Finalist', detail: 'Curriculum-linked AI Inquiry · Awaiting results' },
-        { date: '2026', title: 'Kakao AI TOP 100', badge: 'In preparation' },
-        { date: '2025-2026', title: 'VisualCamp Literacy & Numeracy Demo Project', badge: 'Development lead', detail: 'Led the company demo project during my apprenticeship, independently handling the entire process from UI/UX design to feature development and security for literacy and numeracy.' },
         { date: '2026', title: 'Heureureu Application Platform', badge: 'Development' },
         { date: '2024', title: 'AI Startup Experience & Lectures', badge: 'Training' },
         { date: '2024', title: 'App Inventor & Maker Activities', badge: 'Project' },
